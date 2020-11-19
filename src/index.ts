@@ -14,7 +14,7 @@ app.use('/api', router);
 
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION, { useNewUrlParser: true })
-  .then(() => console.log('Db connection established successfuly'))
+  .then(() => console.log('db connection established successfuly'))
   .catch((err) => console.log(`error : ${err.message}`));
 
 app.listen(port, () => {

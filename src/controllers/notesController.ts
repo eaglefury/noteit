@@ -2,17 +2,35 @@ import { Router } from 'express';
 import Notes from '../models/noteModel';
 
 const router = Router();
+
+/**
+ * get all notes
+ */
 router.get('/notes', (req, res) => {
-  console.log('in the get route');
-  Notes.find({ owner: 'Gaurav Kapoor' }, (err, docs) => {
+  Notes.find({}, (err, docs) => {
     if (err) {
       res.status(500).send('error while querying');
     }
-    console.log(docs);
     res.send(docs);
   });
 });
 
+/**
+ * get notes for the owner
+ */
+router.get('/notes/owner/:owner', (req, res) => {
+  const owner = req.params.owner;
+  Notes.find({ owner: owner }, (err, docs) => {
+    if (err) {
+      res.status(500).send('error while querying');
+    }
+    res.send(docs);
+  });
+});
+
+/**
+ * create a note
+ */
 router.post('/notes/create', (req, res) => {
   Notes.create({
     url: req.body.url,
