@@ -3,9 +3,14 @@ import Notes from '../models/noteModel';
 
 const router = Router();
 router.get('/notes', (req, res) => {
-  const notes = Notes.findOne({})
-    .then((x) => res.send(x ? x.toJSON() : {}))
-    .catch((err) => console.log(err));
+  console.log('in the get route');
+  Notes.find({ owner: 'Gaurav Kapoor' }, (err, docs) => {
+    if (err) {
+      res.status(500).send('error while querying');
+    }
+    console.log(docs);
+    res.send(docs);
+  });
 });
 
 router.post('/notes/create', (req, res) => {
